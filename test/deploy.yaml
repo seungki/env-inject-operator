@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: env-inject-operator
+  labels:
+    app: env-inject-operator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: env-inject-operator
+  template:
+    metadata:
+      labels:
+        app: env-inject-operator
+    spec:
+      containers:
+        - name: operator
+          image: env-inject-operator:local
+          imagePullPolicy: Never
+          env:
+            - name: GITLAB_TOKEN
+              value: "your-token"
